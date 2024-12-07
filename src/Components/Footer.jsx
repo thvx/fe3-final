@@ -1,10 +1,12 @@
 import React from 'react'
+import '../index.css'
+import DHLogo from "../images/DH.png"
 
 const Footer = () => {
   return (
     <footer>
         <p>Powered by</p>
-        <img src="./img/DH.png" alt='DH-logo' />
+        <img src={DHLogo} alt='DH-logo' />
     </footer>
   )
 }
