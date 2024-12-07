@@ -1,18 +1,33 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext } from 'react'
+import { ContextGlobal } from '../Components/utils/global.context'
+import LightIcon from "../images/ico-light.png";
+import DarkIcon from "../images/ico-dark.png";
 import '../index.css'
-//Este componente debera ser estilado como "dark" o "light" dependiendo del theme del Context
 
 const Navbar = () => {
+  const { state, dispatch } = useContext(ContextGlobal);
+
+  const toggleTheme = () => {
+    const newTheme = state.theme === "light" ? "dark" : "light";
+    dispatch({ type: "SET_THEME", payload: newTheme });
+  };
+
   return (
-    <nav>
+    <nav className={`navbar ${state.theme === "dark" ? "dark" : ""}`}>
+      <p>DH Odonto</p>
       <ul className="navbar-item">
-        <li><Link to="/home">Home</Link></li>
-        <li><Link to="/contacto">Contact</Link></li>
-        <li><Link to="/dentist/:id">Detail</Link></li>
-        <li><Link to="/favs">Favs</Link></li>
+        <li><a href="/home">Home</a></li>
+        <li><a href="/contacto">Contact</a></li>
+        <li><a href="/dentist/:id">Detail</a></li>
+        <li><a href="/favs">Favs</a></li>
       </ul>
-      <button>Change theme</button>
+      <button onClick={toggleTheme}>
+        <img 
+          src={state.theme === "light" ? DarkIcon : LightIcon} 
+          alt={state.theme === "light" ? "Dark Mode Icon" : "Light Mode Icon"} 
+          className="img-icon"
+        />
+      </button>
     </nav>
   );
 };

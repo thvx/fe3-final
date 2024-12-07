@@ -1,20 +1,22 @@
-import React from "react";
-
+import React, { useContext } from "react";
+import DoctorImage from "../images/doctor.jpg"
+import FavoriteIcon from "../images/ico-favorites.png"
+import { ContextGlobal } from "./utils/global.context";
+import "../index.css";
 
 const Card = ({ name, username, id }) => {
+  const { dispatch } = useContext(ContextGlobal);
 
   const addFav = ()=>{
-    // Aqui iria la logica para agregar la Card en el localStorage
+    dispatch({type: "ADD_FAV", payload: {name, username, id}})
   }
 
   return (
     <div className="card">
-        {/* En cada card deberan mostrar en name - username y el id */}
-
-        {/* No debes olvidar que la Card a su vez servira como Link hacia la pagina de detalle */}
-
-        {/* Ademas deberan integrar la logica para guardar cada Card en el localStorage */}
-        <button onClick={addFav} className="favButton">Add fav</button>
+        <img className="card-image" src={DoctorImage} alt="Doctor" />
+        <h2><a href={`dentist/${id}`}>{name}</a></h2>
+        <p>{id} - {username}</p>
+        <button onClick={addFav} className="favButton"><img className="img-icon" src={FavoriteIcon} alt="Add favorites"></img></button>
     </div>
   );
 };
